@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css.css">
+	<title>Validation Form</title>
+	<body background="https://images.unsplash.com/photo-1454117096348-e4abbeba002c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"><script>
+		function validateForm() {
+			var firstName = document.forms["myForm"]["firstName"].value;
+			var lastName = document.forms["myForm"]["lastName"].value;
+			var phone = document.forms["myForm"]["phone"].value;
+			var email = document.forms["myForm"]["email"].value;
+			var password = document.forms["myForm"]["password"].value;
+			var terms = document.forms["myForm"]["terms"].checked;
+			
+			if (firstName == "" || lastName == "") {
+				document.getElementById("nameError").innerHTML = "Name cannot be empty";
+				return false;
+			}
+			
+			if (!phone.match(/^\d{10}$/)) {
+				document.getElementById("phoneError").innerHTML = "Please enter a valid phone number";
+				return false;
+			}
+			if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+				document.getElementById("emailError").innerHTML = "Please enter a valid email address";
+				return false;
+			}
+			
+			if (!password.match(/^(?=.\d)(?=.[A-Z])[0-9a-zA-Z]{8,}$/)) {
+				document.getElementById("passwordError").innerHTML = "Password must be at least 8 characters long and contain at least one numeric value and one uppercase letter";
+				return false;
+			}
+			
+			if (!terms) {
+				document.getElementById("termsError").innerHTML = "You must agree to the terms and conditions";
+				return false;
+			}
+			console.log("First Name: " + firstName);
+			console.log("Last Name: " + lastName);
+			console.log("Phone: " + phone);
+			console.log("Email: " + email);
+			console.log("Password: " + password);
+			alert("Form submitted successfully");
+			return true;
+		}
+	</script>
+    
+	<form name="myForm" onsubmit="return validateForm()" class="container" >
+		<label>First Name:</label>
+		<input type="text" name="firstName" placeholder="Enter First Name" required><br>
+		<span id="nameError"></span><br>
+		
+		<label>Last Name:</label>
+		<input type="text" name="lastName" placeholder="Enter Last Name" required><br>
+		<span id="nameError"></span><br>
+		
+		<label>Phone Number:</label>
+		<input type="text" name="phone" placeholder="Enter Phone Number" required><br>
+		<span id="phoneError"></span><br>
+		
+		<label>Email:</label>
+		<input type="text" name="email" placeholder="Enter Email Address"><br>
+		<span id="emailError"></span><br>
+		
+		<label>Password:</label>
+		<input type="password" name="password" placeholder="Enter Password" required><br>
+		<span id="passwordError"></span><br>
+		
+		<label><input type="checkbox" name="terms">I agree to the given Terms and Conditions.</label><br>
+		<span id="termsError"></span><br>
+		
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>
